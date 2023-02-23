@@ -34,13 +34,13 @@
         }
         void Update()
         {
-            //if (DoubleTap && flag)
-            //{
-            //    flag = false;
-            //    ToggleCamera();
-            //    Debug.Log(">>> Double Tap Detected <<<");
-            //    Invoke("ResetFlagValue", 1f);
-            //}
+            if (DoubleTap && flag)
+            {
+                flag = false;
+                ToggleCamera();
+                Debug.Log(">>> Double Tap Detected <<<");
+                Invoke("ResetFlagValue", 1f);
+            }
         }
         void ResetFlagValue()
         {

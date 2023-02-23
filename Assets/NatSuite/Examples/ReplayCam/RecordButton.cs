@@ -47,7 +47,10 @@ namespace NatSuite.Examples.Components {
             if (!touch)
             {
                 //Calling the image capturing function
-                uiManager.CaputureImage();
+                if (uiManager != null)
+                {
+                    uiManager.CaputureImage();
+                }
                 yield break;
             }
             // Start recording

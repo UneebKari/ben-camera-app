@@ -520,6 +520,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 114316963683169970, guid: d88712a49642b4b49b8322acc70b918b,
         type: 3}
+      propertyPath: maxDuration
+      value: 60
+      objectReference: {fileID: 0}
+    - target: {fileID: 114316963683169970, guid: d88712a49642b4b49b8322acc70b918b,
+        type: 3}
       propertyPath: onTouchDown.m_PersistentCalls.m_Calls.Array.size
       value: 1
       objectReference: {fileID: 0}

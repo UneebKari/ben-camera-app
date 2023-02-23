@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.Video;
 using UnityEngine.UI;
 using UnityEngine.Networking;
+using UnityEngine.SceneManagement;
 
 public class UIController : MonoBehaviour
 {
@@ -13,7 +14,7 @@ public class UIController : MonoBehaviour
     public VideoPlayer previewVideoPlayer;
     public Image previewImagePlayer;
     public RawImage imagePreview;
-
+    bool isVideoPlayerOpenedForRestingTheSceneToClearGarbageValues = false;
     // Start is called before the first frame update
     void Start()
     {
@@ -21,9 +22,17 @@ public class UIController : MonoBehaviour
     }
 
     public void CloseVideoPreview() {
-        previewVideoPlayer.gameObject.SetActive(false);
-        videoPreviewPanel.SetActive(false);
-        cameraPanel.SetActive(true);
+        if (isVideoPlayerOpenedForRestingTheSceneToClearGarbageValues)
+        {
+            SceneManager.LoadSceneAsync(SceneManager.GetActiveScene().buildIndex);
+
+        }
+        else
+        {
+            previewVideoPlayer.gameObject.SetActive(false);
+            videoPreviewPanel.SetActive(false);
+            cameraPanel.SetActive(true);
+        }
     }
     public void CloseImagePreview()
     {
@@ -82,5 +91,18 @@ public class UIController : MonoBehaviour
         // cleanup
         //Object.Destroy(texture);
     }
-    
+    private void OnApplicationFocus(bool focus)
+    {
+        Debug.Log(">>>>> Application Focus Status is " + focus + " <<<<<");
+        if (focus && !videoPreviewPanel.activeInHierarchy)
+        {
+            SceneManager.LoadSceneAsync(SceneManager.GetActiveScene().buildIndex);
+        }
+        else if (focus && videoPreviewPanel.activeInHierarchy)
+        {
+            Debug.Log(">>>>> Video Player is active and scene will be restrated on closing of player <<<<<");
+            previewVideoPlayer.Play();
+            isVideoPlayerOpenedForRestingTheSceneToClearGarbageValues = true;
+        }
+    }
 }
